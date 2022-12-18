@@ -1,0 +1,15 @@
+.carousel {
+  min-height: 350px;
+  background-image: url("../public/media/Carousel-1.jpg");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
+
+.showDisplay {
+  display: block;
+}
+
+.hideDisplay {
+  display: none;
+}
