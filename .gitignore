@@ -2,4 +2,6 @@ client/node_modules/
 server/node_modules/
 client/public/media
 client/public/products
+client/public/categories
+client/public/users
 server/config.env
