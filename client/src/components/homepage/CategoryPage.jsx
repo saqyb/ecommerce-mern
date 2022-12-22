@@ -4,11 +4,13 @@ import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import NoDataUI from "../error/NoDataUI";
 import Card from "./Card";
+import { CategoriesContext } from "../../services/CategoriesContext";
 
 const CategoryPage = () => {
   const [products, setProducts] = useState([]);
   const { itemId } = useParams();
   const [category, setCategory] = useState({});
+  const { categories, setCategories } = useContext(CategoriesContext);
   const getProducts = async () => {
     try {
       const res = await fetch("/productCategory", {
@@ -38,32 +40,10 @@ const CategoryPage = () => {
     }
   };
   const getCategory = async () => {
-    try {
-      const res = await fetch("/getCategory", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: itemId,
-        }),
-      });
-      const data = await res.json();
-      if (res.status === 200) {
-        setCategory(data);
-        console.log(category);
-        console.log("Category");
-      } else {
-        console.log("Failed to fetch Products");
-      }
-      // console.log("status code: ", res.status); // 200
-      if (!res.ok) {
-        console.log(res);
-        throw new Error(`Error! status: ${res.status}`);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    const cat = categories.find((item) => {
+      return item.id === itemId;
+    });
+    setCategory(cat);
   };
   useEffect(() => {
     setProducts([]);
@@ -75,11 +55,23 @@ const CategoryPage = () => {
   if (products.length > 0) {
     return (
       <>
-        <div className='mt-32'>
-          <div>
-            <p className='text-xl font-normal'>{category.name} Category</p>
+        <div className='my-16'>
+          <div className='relative w-full '>
+            <div
+              className={`h-72 w-full bg-fixed brightness-75 bg-cover bg-center bg-[url(../../categories/${category.image})]`}
+            ></div>
+            <div className='absolute top-1/3 w-full my-0 mx-auto'>
+              <p className='text-6xl text-center text-white font-bold'>
+                {category.name} Category
+              </p>
+              <p className='text-4xl mt-9 text-center text-white font-based'>
+                {products.length > 1
+                  ? products.length + " Products found"
+                  : products.length + " Product found"}
+              </p>
+            </div>
           </div>
-          <div className='flex flex-wrap w-10/12 my-0 mx-auto'>
+          <div className='flex flex-wrap w-10/12 my-10  mx-auto'>
             {products.map((item) => {
               return (
                 <>

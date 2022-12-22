@@ -68,7 +68,7 @@ const EditProduct = () => {
     if (res.status === 422 || !data) {
     } else {
       console.log(res.status);
-      navigate("/dashboard");
+      navigate("/dashboard/products");
     }
 
     // if (image != "") formData.append("image", image);
@@ -94,7 +94,7 @@ const EditProduct = () => {
   return (
     <div className='mb-10'>
       <section className='text-gray-600 body-font relative'>
-        <div className='bg-white p-8 flex flex-col'>
+        <div className=' p-8 flex flex-col'>
           <h2 className='text-gray-900 text-lg mb-1 font-medium title-font'>
             Edit Product{" "}
           </h2>
@@ -112,7 +112,7 @@ const EditProduct = () => {
                 type='text'
                 id='title'
                 name='title'
-                className='w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                className='w-full  rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
               />
             </div>
             <div className='relative mb-4'>
@@ -144,7 +144,7 @@ const EditProduct = () => {
             <div className='flex text-sm text-gray-600 relative mb-4'>
               <label
                 htmlFor='file-upload'
-                class='relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500'
+                class='relative cursor-pointer rounded-md  font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500'
               >
                 <span>Upload a file</span>
                 <input
@@ -169,7 +169,7 @@ const EditProduct = () => {
                 onChange={handleInput}
                 id='body'
                 name='description'
-                className='w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out'
+                className='w-full  rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out'
               ></textarea>
             </div>
             <div className='relative mb-4 flex'>
@@ -186,7 +186,7 @@ const EditProduct = () => {
                   type='number'
                   id='price'
                   name='price'
-                  className='w-4/6 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                  className='w-4/6  rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 />
               </div>
               <div className='w-full'>
@@ -202,7 +202,7 @@ const EditProduct = () => {
                   type='number'
                   id='quantity'
                   name='quantity'
-                  className='w-4/6 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
+                  className='w-4/6  rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 />
               </div>
               <div className='flex w-full'>

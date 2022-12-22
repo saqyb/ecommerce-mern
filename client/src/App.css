@@ -1,7 +1,12 @@
+* {
+  scroll-behavior: smooth;
+}
+
 .carousel {
   min-height: 350px;
   background-image: url("../public/media/Carousel-1.jpg");
-  background-position: center; /* Center the image */
+  background-position: top; /* Center the image */
+  background-attachment: fixed;
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
 }

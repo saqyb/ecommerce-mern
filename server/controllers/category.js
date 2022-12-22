@@ -30,7 +30,7 @@ exports.addCategory = async (req, res) => {
 
 exports.getCategory = async (req, res) => {
   const { id } = req.body;
-  console.log("GET CATEGORY");
+  // console.log("GET CATEGORY");
   if (id) {
     const category = await Category.findOne({ id: id });
     if (category) {

@@ -82,9 +82,14 @@ exports.getUser = async (req, res) => {
 
 exports.getVendor = async (req, res) => {
   const { id } = req.body;
+  console.log("REQ.BODY");
+  console.log(req.body);
   try {
     if (id) {
-      const vendor = await User.findOne({ id: id }, { id: 1, name: 1, dp: 1 });
+      const vendor = await User.findOne(
+        { id: id },
+        { id: 1, name: 1, dp: 1, email: 1 }
+      );
       if (vendor) {
         res.json(vendor);
       } else {

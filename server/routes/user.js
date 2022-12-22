@@ -18,6 +18,7 @@ router.post("/login", getUser);
 router.delete("/user", deleteUser);
 router.patch("/user", uploadDP.single("dp"), updateUser);
 router.post("/vendor", getVendor);
+router.get("/vendor", getVendor);
 
 router.get("/authenticate", authenticate, (req, res) => {
   // console.log("About page from Auth");

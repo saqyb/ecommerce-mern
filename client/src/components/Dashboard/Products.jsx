@@ -78,37 +78,35 @@ const Products = () => {
   if (filteredProducts.length > 0)
     return (
       <>
-        <div className=''>
+        <div className='mb-16'>
           <div className='overflow-x-auto relative'>
             <p className='text-2xl ml-5 font-medium'>
               Your Products ({filteredProducts.length})
             </p>
 
             <table className='w-[80%] my-0 mx-auto text-sm text-left text-gray-500 dark:text-gray-400'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-                <tr>
-                  <th scope='col' className='py-3 px-6 w-36'>
-                    Image
-                  </th>
-                  <th scope='col' className='py-3 px-6'>
-                    Product name
-                  </th>
-                  <th scope='col' className='py-3 px-6'>
-                    Category
-                  </th>
-                  <th scope='col' className='py-3 px-6'>
-                    Price
-                  </th>
-                  <th scope='col' className='py-3 px-6'>
-                    Quantity
-                  </th>
-                  <th scope='col' className='py-3 px-6'>
-                    Edit
-                  </th>
-                  <th scope='col' className='py-3 px-6'>
-                    Delete
-                  </th>
-                </tr>
+              <thead className='text-xs h-16 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+                <th scope='col' className='py-3 px-6'>
+                  Image
+                </th>
+                <th scope='col' className='py-3 px-6'>
+                  Product name
+                </th>
+                <th scope='col' className='py-3 px-6'>
+                  Category
+                </th>
+                <th scope='col' className='py-3 px-6'>
+                  Price
+                </th>
+                <th scope='col' className='py-3 px-6'>
+                  Quantity
+                </th>
+                <th scope='col' className='py-3 px-6'>
+                  Edit
+                </th>
+                <th scope='col' className='py-3 px-6'>
+                  Delete
+                </th>
               </thead>
               <tbody>
                 {filteredProducts.map((item) => {
@@ -117,24 +115,35 @@ const Products = () => {
                   );
                   return (
                     <>
-                      <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
-                        <td className='py-4 px-6 w-20'>
-                          <img
-                            src={
-                              item.image
-                                ? `../products/${item.image}`
-                                : "../media/placeholder.jpg"
-                            }
-                            alt=''
-                          />
+                      <tr className='bg-white border-b h-28 dark:bg-gray-800 dark:border-gray-700'>
+                        <td className='h-full w-full'>
+                          <NavLink to={"/product"} state={item}>
+                            <img
+                              src={
+                                item.image
+                                  ? `../products/${item.image}`
+                                  : "../media/placeholder.jpg"
+                              }
+                              alt=''
+                              className=''
+                            />
+                          </NavLink>
                         </td>
+
                         <th
                           scope='row'
                           className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white'
                         >
-                          {item.title}
+                          <NavLink to={"/product"} state={item}>
+                            {item.title}
+                          </NavLink>
                         </th>
-                        <td className='py-4 px-6'>{selectedCategory.name}</td>
+                        <td className='py-4 px-6'>
+                          <NavLink to={`../../category/${selectedCategory.id}`}>
+                            {selectedCategory.name}
+                          </NavLink>
+                        </td>
+
                         <td className='py-4 px-6'>${item.price}</td>
                         <td className='py-4 px-6'>{item.quantity}</td>
                         <td className='py-4 px-6'>
@@ -147,7 +156,7 @@ const Products = () => {
                         <td className='py-4 px-6'>
                           <button
                             onClick={() => deleteProduct(item.id)}
-                            class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'
+                            class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md'
                           >
                             Delete
                           </button>
