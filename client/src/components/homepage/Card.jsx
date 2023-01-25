@@ -4,7 +4,7 @@ const Card = (props) => {
   return (
     <>
       {/* <h1>ITEM</h1> */}
-      <div className='lg:basis-1/5 md:basis-1/3 flex hover:scale-[1.02] transform transition duration-300  hover:drop-shadow-lg'>
+      <div className='lg:basis-1/5 md:basis-1/3 flex hover:scale-[1.02] transform transition duration-300'>
         <NavLink to={"/product"} state={props.product}>
           <div className='flex flex-col items-center m-2 w-52'>
             {props.product.quantity ? (

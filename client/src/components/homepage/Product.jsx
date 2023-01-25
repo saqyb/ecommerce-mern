@@ -8,17 +8,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CategoriesContext } from "../../services/CategoriesContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Product = () => {
   const { Cart, dispatch } = useContext(CartContext);
   const [category, setCategory] = useState({});
-  const { categories, setCategories } = useContext(CategoriesContext);
-
-  const { currentUser, setCurrentUser } = useContext(userContext);
+  const { categories } = useContext(CategoriesContext);
+  const { currentUser } = useContext(userContext);
   const location = useLocation();
   const navigate = useNavigate();
   const { state: product } = location;
-  // console.log(product.quantity);
   const CartObj = Cart.productIds.find((obj) => obj.id == location.state.id);
   let btn;
   if (currentUser) {
@@ -46,7 +46,6 @@ const Product = () => {
         console.log(data);
         console.log("Failed to fetch Data");
       }
-      // console.log("status code: ", res.status); // 200
       if (!res.ok) {
         console.log(res);
         throw new Error(`Error! status: ${res.status}`);
@@ -55,12 +54,50 @@ const Product = () => {
       console.log(err);
     }
   };
-
   const getCategory = async () => {
     const cat = categories.find((item) => {
       return item.id === product.categoryId;
     });
     setCategory(cat);
+  };
+
+  const soldToast = () => {
+    toast.error("This Product is Sold Out", {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const alreadyInCartToast = () => {
+    toast.error("Product Already in Cart", {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const addToCart = () => {
+    toast.success("Added to Cart", {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   useEffect(() => {
@@ -114,9 +151,7 @@ const Product = () => {
                   <span className='title-font font-medium text-gray-900'>
                     {vendor.name}
                   </span>
-                  <span className='text-gray-400 text-xs tracking-widest mt-0.5'>
-                    {/* {currentAuthor.BIO} */}
-                  </span>
+                  <span className='text-gray-400 text-xs tracking-widest mt-0.5'></span>
                 </span>
               </a>
             </NavLink>
@@ -124,16 +159,29 @@ const Product = () => {
           <div className='w-9/12 mx-10 mt-5'>
             <p>
               {product.description} Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Pariatur optio quia architecto corrupti maxime?
-              At qui praesentium error dolor placeat magnam modi excepturi ea ab
-              cumque cupiditate, ullam amet voluptatum.
+              adipisicing elit. ullam amet voluptatum.
             </p>
           </div>
           <div className='mt-5'>
             {product.quantity < 1 ? (
               <>
-                <button class='m-10 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-md'>
+                <button
+                  onClick={soldToast}
+                  class='m-10 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-md'
+                >
                   Sold Out
+                  <ToastContainer
+                    position='bottom-center'
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme='colored'
+                  />
                 </button>
               </>
             ) : (
@@ -142,13 +190,28 @@ const Product = () => {
                   onClick={() => {
                     if (currentUser) {
                       if (CartObj) {
-                        dispatch({ type: "Delete", payload: CartObj });
-                      } else dispatch({ type: "Add", payload: location.state });
+                        alreadyInCartToast();
+                      } else {
+                        addToCart();
+                        dispatch({ type: "Add", payload: location.state });
+                      }
                     } else navigate("/login");
                   }}
                   class='m-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'
                 >
-                  {btn}
+                  Add to Cart
+                  <ToastContainer
+                    position='bottom-center'
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme='colored'
+                  />
                 </button>
               </>
             )}

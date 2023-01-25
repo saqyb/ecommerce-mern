@@ -1,18 +1,35 @@
 import React from "react";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { Carousel } from "antd";
+import { CategoriesContext } from "../../services/CategoriesContext";
 
-const Carousel = () => {
+const CarouselComponent = () => {
+  const { categories } = useContext(CategoriesContext);
   return (
     <>
-      <div className='w-10/12 carousel my-0 mx-auto'>
-        {/* <img src='media/Carousel-1.jpg' alt='' /> */}
-        <div className='absolute top-[320px] left-[200px]'>
-          <button class='bg-blue-500 hover:bg-blue-400 text-white font-semibold text-2xl py-2 px-4 border border-gray-400 rounded shadow h-16 w-48 motion-safe:animate-bounce'>
-            Shop Now
-          </button>
-        </div>
-      </div>
+      <Carousel autoplay autoplaySpeed={2000}>
+        {categories.map((category) => {
+          return (
+            <>
+              <div className='relative w-full'>
+                <div
+                  className={`h-72 w-full bg-fixed brightness-75 bg-cover bg-center bg-[url(../../categories/${category.image})]`}
+                ></div>
+                <NavLink to={`category/${category.id}`}>
+                  <div className='absolute top-1/3 w-full my-0 mx-auto'>
+                    <p className='text-6xl underline text-center text-white font-bold'>
+                      {category.name} Category
+                    </p>
+                  </div>
+                </NavLink>
+              </div>
+            </>
+          );
+        })}
+      </Carousel>
     </>
   );
 };
 
-export default Carousel;
+export default CarouselComponent;

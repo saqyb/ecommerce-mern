@@ -1,59 +1,18 @@
 import React from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { userContext } from "../../services/UserContext";
 import { CartContext } from "../../services/CartContext";
-import ProductsArr from "../Products";
 import { ProductsContext } from "../../services/ProductContext";
-import { NavLink } from "react-router-dom";
 import * as uuid from "uuid";
-
-// const incBool=()=>{}
-const IncBool = (props) => {
-  const { Cart, dispatch } = useContext(CartContext);
-
-  const { product, item } = props;
-  // console.log(product);
-  // console.log("incBool");
-
-  if (item.quantity < product.quantity) {
-    return (
-      <>
-        <button
-          type='button'
-          class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-          onClick={() => {
-            dispatch({ type: "Inc", payload: item });
-          }}
-        >
-          +
-        </button>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <button
-          type='button'
-          class='text-blue-800 bg-blue-300 hover:bg-blue-400 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-        >
-          Sold
-        </button>
-      </>
-    );
-  }
-};
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import NoDataUI from "../error/NoDataUI";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const { Cart, dispatch } = useContext(CartContext);
   const { products, setProducts } = useContext(ProductsContext);
   const { currentUser } = useContext(userContext);
-  // console.log(Cart.productIds.id);
-  // var pIds = [];
-
-  // Cart.productIds.map((item) => {
-  //   pIds.push(item.id);
-  // });
-  // console.log(pIds);
   const AddOrder = async (e) => {
     e.preventDefault();
     const res = await fetch("/order", {
@@ -81,6 +40,7 @@ const Cart = () => {
     // // navigate("/Login");
     // console.log(Cart);
   };
+
   if (Cart.productIds.length > 0)
     return (
       <>
@@ -107,75 +67,13 @@ const Cart = () => {
                   Total
                 </h3>
               </div>
-
               {Cart.productIds.map((item) => {
                 const product = products.find((obj) => obj.id === item.id);
 
                 if (product) {
                   return (
                     <>
-                      <div className='flex border-b items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
-                        <div className='flex w-2/5'>
-                          <NavLink to={"/product"} state={product}>
-                            <div className='w-20 h-16'>
-                              <img
-                                className='h-auto'
-                                src={`products/${product.image}`}
-                                alt=''
-                              />
-                            </div>
-                          </NavLink>
-
-                          <div className='flex flex-col justify-between ml-4 flex-grow'>
-                            <NavLink to={"/product"} state={product}>
-                              <span className='font-bold text-sm'>
-                                {product.title}
-                              </span>
-                            </NavLink>
-                            <span className='text-red-500 text-xs'>
-                              {/* {product.brand} */}
-                            </span>
-                            <a
-                              className='font-semibold cursor-pointer hover:text-red-500 text-gray-500 text-xs'
-                              onClick={() => {
-                                dispatch({ type: "Delete", payload: item });
-                              }}
-                            >
-                              Remove
-                            </a>
-                          </div>
-                        </div>
-                        <div className='flex justify-center w-1/5'>
-                          <button
-                            type='button'
-                            class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'
-                            onClick={() => {
-                              if (item.quantity == 1) {
-                                dispatch({ type: "Delete", payload: item });
-                              } else {
-                                dispatch({ type: "Dec", payload: item });
-                              }
-                            }}
-                          >
-                            -
-                          </button>
-                          <p className='text-xl pl-5 pr-6'>{item.quantity}</p>
-                          <IncBool product={product} item={item} />
-                          {() => {
-                            if (true) {
-                              console.log("ABC");
-                              return "ABC";
-                            }
-                          }}
-                        </div>
-
-                        <span className='text-center w-1/5 font-semibold text-sm'>
-                          {product.price}
-                        </span>
-                        <span className='text-center w-1/5 font-semibold text-sm'>
-                          {product.price * item.quantity}
-                        </span>
-                      </div>
+                      <CartItem item={item} product={product}></CartItem>
                     </>
                   );
                 }
@@ -240,7 +138,11 @@ const Cart = () => {
   else {
     return (
       <>
-        <div className='mt-20'>No Data</div>
+        <div className='mt-32'>
+          <div className='flex flex-wrap w-10/12 my-0 mx-auto'>
+            <NoDataUI></NoDataUI>
+          </div>
+        </div>
       </>
     );
   }

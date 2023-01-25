@@ -35,29 +35,10 @@ const AppRoutes = () => {
         {/* <Route exact path='/products' element={<Products />}></Route> */}
         <Route exact path='/logout' element={<Logout />}></Route>
         <Route exact path='/product' element={<Product />}></Route>
-        <Route exact path='dashboard' element={<Dashboard />}>
-          <Route path='products' element={<Products />}></Route>
-          <Route exact path='/dashboard/add' element={<AddProduct />}></Route>
-          <Route
-            exact
-            path='/dashboard/editProfile'
-            element={<EditProfile />}
-          />
-          <Route exact path='/dashboard/orders' element={<Orders />}></Route>
-          <Route
-            exact
-            path='/dashboard/ProfileOrders'
-            element={<ProfileOrders />}
-          ></Route>
-          <Route
-            exact
-            path='/dashboard/updateProduct'
-            element={<EditProduct />}
-          ></Route>
-        </Route>
+        <Route exact path='dashboard' element={<Dashboard />}></Route>
         <Route exact path='/search' element={<SearchPage />}></Route>
         <Route exact path='/store/:userId' element={<StorePage />}></Route>
-
+        <Route exact path='/updateProduct' element={<EditProduct />}></Route>
         <Route
           exact
           path='/category/:itemId'

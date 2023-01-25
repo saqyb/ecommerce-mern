@@ -8,7 +8,6 @@ import { CategoriesContext } from "../../services/CategoriesContext";
 const EditProduct = () => {
   const { currentUser, setCurrentUser } = useContext(userContext);
   const { categories, setCategories } = useContext(CategoriesContext);
-
   const location = useLocation();
   const navigate = useNavigate();
   const [product, setProduct] = useState(location.state);
@@ -68,7 +67,7 @@ const EditProduct = () => {
     if (res.status === 422 || !data) {
     } else {
       console.log(res.status);
-      navigate("/dashboard/products");
+      navigate("/dashboard");
     }
 
     // if (image != "") formData.append("image", image);

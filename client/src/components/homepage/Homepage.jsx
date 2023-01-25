@@ -1,6 +1,6 @@
 import React from "react";
 import CardContainer from "./CardContainer";
-import Carousel from "./Carousel";
+import CarouselComponent from "./Carousel";
 import { useContext, useEffect } from "react";
 import { userContext } from "../../services/UserContext";
 
@@ -34,8 +34,11 @@ const Homepage = () => {
   }, []);
   return (
     <>
-      <div className='mt-24'>
-        <Carousel></Carousel>
+      <div className='mt-16'>
+        <CarouselComponent></CarouselComponent>
+        <h1 className='w-10/12 my-10 mx-auto text-gray-800 text-4xl font-semibold'>
+          Featured Products:
+        </h1>
         <CardContainer />
       </div>
     </>

@@ -82,8 +82,6 @@ exports.getUser = async (req, res) => {
 
 exports.getVendor = async (req, res) => {
   const { id } = req.body;
-  console.log("REQ.BODY");
-  console.log(req.body);
   try {
     if (id) {
       const vendor = await User.findOne(

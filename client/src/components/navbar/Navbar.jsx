@@ -6,9 +6,10 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { ProductsContext } from "../../services/ProductContext";
 import { CategoriesContext } from "../../services/CategoriesContext";
+import { CartContext } from "../../services/CartContext";
 const Navbar = () => {
   const [search, setSearch] = useState("");
-
+  const { Cart, dispatch } = useContext(CartContext);
   const { products, setProducts } = useContext(ProductsContext);
   const { categories, setCategories } = useContext(CategoriesContext);
   const { currentUser, setCurrentUser } = useContext(userContext);
@@ -140,16 +141,6 @@ const Navbar = () => {
                   </a>
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/cart"}>
-                  <a
-                    href='#'
-                    className='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
-                  >
-                    Cart
-                  </a>
-                </NavLink>
-              </li>
             </ul>
           </div>
         </>
@@ -171,7 +162,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashboard/products"}>
+                <NavLink to={"/dashboard"}>
                   <a
                     href='#'
                     className='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
@@ -182,12 +173,16 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink to={"/cart"}>
-                  <a
-                    href='#'
-                    className='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
-                  >
-                    Cart
-                  </a>
+                  <p class='inline-flex relative '>
+                    <span>Cart</span>
+                    {Cart.productIds.length > 0 ? (
+                      <div class='inline-flex absolute -top-2 -right-6 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white dark:border-gray-900'>
+                        {Cart.productIds.length}
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </p>
                 </NavLink>
               </li>
             </ul>
@@ -199,7 +194,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className='bg-white drop-shadow-md fixed top-0 w-full z-10 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900'>
+      <nav className='bg-white drop-shadow-sm fixed top-0 w-full z-10 border-b border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900'>
         <div className='container flex flex-wrap justify-between items-center mx-auto'>
           <NavLink to={"/"}>
             <div className='flex items-center'>

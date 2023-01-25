@@ -13,7 +13,6 @@ const Products = () => {
   const filteredProducts = products.filter((item) => {
     if (item.userId == currentUser.id) return item;
   });
-
   const getProducts = async () => {
     try {
       const res = await fetch("/product", {
@@ -125,7 +124,7 @@ const Products = () => {
                                   : "../media/placeholder.jpg"
                               }
                               alt=''
-                              className=''
+                              className='w-4/6'
                             />
                           </NavLink>
                         </td>
@@ -147,7 +146,7 @@ const Products = () => {
                         <td className='py-4 px-6'>${item.price}</td>
                         <td className='py-4 px-6'>{item.quantity}</td>
                         <td className='py-4 px-6'>
-                          <NavLink to={"/dashboard/updateProduct"} state={item}>
+                          <NavLink to={"/updateProduct"} state={item}>
                             <button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'>
                               Edit
                             </button>
